@@ -18,16 +18,11 @@ export class UserListComponent implements OnInit {
   _router = inject(Router);
   searcher = new FormControl('');
   players$!: Observable<Player[]>;
-  // constructor(private playersService: PlayersService){}
 
   ngOnInit() {
-    // this._playersService
-    //   .getPlayer()
-    //   .subscribe((res) => console.log(`The player data = `, res));
     this.players$ = this._playersService.getPlayer();
 
     this.searcher.valueChanges.pipe(debounceTime(1000)).subscribe((search) => {
-      // console.debug('Search value = ', search);
       if (search) {
         this.players$ = this._playersService.getPlayer(search);
       } else {
@@ -37,7 +32,7 @@ export class UserListComponent implements OnInit {
   }
 
   editPlayer(player: Player) {
-    this._router.navigateByUrl('users/edit');
+    this._router.navigateByUrl('users/edit', { state: { player } });
   }
 
   deletePlayer(player: Player) {

@@ -8,6 +8,7 @@ import {
   Validators,
   ReactiveFormsModule,
 } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Player } from 'src/app/common/interfaces/player.intefaces';
 @Component({
   selector: 'app-user-add',
@@ -18,7 +19,7 @@ import { Player } from 'src/app/common/interfaces/player.intefaces';
 })
 export class UserAddComponent {
   _playerService = inject(PlayersService);
-  _router = inject(PlayersService);
+  _router = inject(Router);
 
   form = new FormGroup({
     name: new FormControl('', Validators.required),
@@ -43,5 +44,6 @@ export class UserAddComponent {
       id: new Date().getTime().toString(),
       ...this.form.getRawValue(),
     } as Player);
+    this._router.navigate(['users']);
   }
 }
