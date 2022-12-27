@@ -37,6 +37,7 @@ export class UserListComponent implements OnInit {
 
   deletePlayer(player: Player) {
     if (confirm(`are you sure to delete the player ${player.name}?`)) {
+      this._playersService.deletePlayer(player.id);
     }
   }
 }
