@@ -1,7 +1,12 @@
-<button class="btn btn-primary">Aggregate Jugader</button>
-<input type="text" class="form-control mt-2">
+<button class="btn btn-primary" (click)="_router.navigate(['users/add'])">Add a new Player!</button>
+<input [formControl]="searcher" type="text" class="form-control mt-2" >
 
-<div class="players">
+<div class="players" *ngIf="players$ | async as players">
+    <pre>
+        <code>
+            {{players | json}}
+        </code>
+    </pre>
     <table class="table">
         <thead>
             <tr>
@@ -12,15 +17,15 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <th scope="row"></th>
-                <td>Kevin</td>
+            <tr *ngFor="let player of players; let i = index">
+                <th scope="row">{{i}}</th>
+                <td>{{player.name}}</td>
                 <td>
-                    <li> Batteryman - 50 cartas</li>
+                    <li *ngFor="let deck of player.decks">{{deck.name}}- {{deck.cards}} cards</li>
                 </td>
                 <td>
-                    <button class="btn btn-primary">Editor</button>
-                    <button class="btn btn-danger ms-2">Eliminate</button>
+                    <button class="btn btn-primary" (click)="editPlayer(player)">Edit</button>
+                    <button class="btn btn-danger ms-2" (click)="deletePlayer(player)">Delete</button>
                 </td>
             </tr>
         </tbody>
