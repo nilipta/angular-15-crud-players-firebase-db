@@ -2,11 +2,6 @@
 <input [formControl]="searcher" type="text" class="form-control mt-2" >
 
 <div class="players" *ngIf="players$ | async as players">
-    <pre>
-        <code>
-            {{players | json}}
-        </code>
-    </pre>
     <table class="table">
         <thead>
             <tr>
